@@ -1,28 +1,7 @@
 import "./App.css";
-
-function Subject(props) {
-  return (
-    <header>
-      <h1>{props.title}</h1>
-      {props.sub}
-    </header>
-  );
-}
-
-function Toc() {
-  return (
-    <nav>
-      <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
-      </ul>
-    </nav>
-  );
-}
-function Content(props) {
-  return <article>{props.cont}</article>;
-}
+import Toc from "./component/Toc";
+import Subject from "./component/Subject";
+import Content from "./component/Content";
 
 function App() {
   return (
