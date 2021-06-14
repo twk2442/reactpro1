@@ -4,4 +4,4 @@ props-state.png 사진참조
 
 state: 컴포넌트에서 props에 따라 !!보이지 않는!! 내부구현에 필요한 것들 
 
-props와 state rhksrp 
+props와 state rhksrp ㅇㅎsdf
