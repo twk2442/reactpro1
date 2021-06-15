@@ -1,10 +1,14 @@
-function Subject(props) {
-  return (
-    <header>
-      <h1>{props.title}</h1>
-      {props.sub}
-    </header>
-  );
+import React, { Component } from "react";
+
+class Subject extends Component {
+  render() {
+    return (
+      <header>
+        <h1>{this.props.title}</h1>
+        {this.props.sub}
+      </header>
+    );
+  }
 }
 
 export default Subject;
