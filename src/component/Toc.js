@@ -2,13 +2,16 @@ import React, { Component } from "react";
 
 class Toc extends Component {
   render() {
+    var Data = this.props.data; // 외부 props (app.js 파일에서) data 받아와서 변수 Data로 선언
+    var i = 0;
+    var list = []; //list 선언
+    while (i < Data.length) {
+      list.push(<li>{Data[i].title}</li>);
+      i = i + 1;
+    }
     return (
       <nav>
-        <ul>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>JavaScript</li>
-        </ul>
+        <ul>{list}</ul>
       </nav>
     );
   }

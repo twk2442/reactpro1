@@ -9,6 +9,12 @@ class App extends Component {
     super(props);
     this.state = {
       subject: { title: "WEB", sub: "World Wide Web!" },
+      menu: [
+        // state도 배열로 만들 수 있다.
+        { id: 1, title: "HTML" },
+        { id: 2, title: "CSS" },
+        { id: 3, title: "java Script1" },
+      ],
     };
   }
   render() {
@@ -18,7 +24,7 @@ class App extends Component {
           title={this.state.subject.title}
           sub={this.state.subject.sub}
         ></Subject>
-        <Toc></Toc>
+        <Toc data={this.state.menu}></Toc>
         <Content desc="HTML is HyperText Markup Language. "></Content>
       </div>
     );
