@@ -40,8 +40,8 @@ class App extends Component {
             // this.state.mode ='welcome' ..2)   
             this.setState({   // constructor 외부이기때문에 2)와같은 방식의 state 수정은 불가 
               mode:'welcome'  // why?  리엑트가 state의 변화를 인지 못한다. 
-            });
-          }.bind(this)}>{this.state.subject.title}</a></h1>
+            });  // bind 함수를 통해  this 사용가능 
+          }.bind(this)}>{this.state.subject.title}</a></h1>   
           {this.state.subject.sub}
         </header>
         <Toc data={this.state.menu}></Toc>
