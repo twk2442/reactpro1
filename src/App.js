@@ -11,7 +11,7 @@ class App extends Component {
     // constructor 내부에서는 state를 직접 수정 가능
     super(props);
     this.state = {
-      mode: "welcome", // 이벤트
+      mode: "create", // 이벤트
       defid: 0,
       welcome: { title: "welcome", desc: "hello react" }, // 이벤트발생시 내용 state
       subject: { title: "WEB", sub: "World Wide Web!" },
@@ -45,7 +45,14 @@ class App extends Component {
       }
       _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
     } else if (this.state.mode === "create") {
-      _article = <CreateContent></CreateContent>;
+      _article = (
+        <CreateContent
+          onSubmit={function (_title, _desc) {
+            // menu 추가
+            console.log(_title, _desc);
+          }.bind(this)}
+        ></CreateContent>
+      );
     }
 
     return (
