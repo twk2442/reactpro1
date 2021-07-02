@@ -10,7 +10,7 @@ class CreateContent extends Component {
           method="post" // post 방식으로 전송 (내용 보호)
           onSubmit={function (e) {
             e.preventDefault(); // form태그의 submit버튼누를시 실행하는 이벤트
-            alert("submit"); //onSubmit이벤트는  form태그의 고유기능 ㄹㅣ엑트기능x
+            //onSubmit이벤트는  form태그의 고유기능 ㄹㅣ엑트기능x
             this.props.onSubmit(e.target.title.value, e.target.desc.value); // app 컴포넌트의 CreateContent에 onSubmit이벤트 인자로 사용자에게 입력받은 내용 넘김
           }.bind(this)}
         >

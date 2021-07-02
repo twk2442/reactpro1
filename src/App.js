@@ -10,6 +10,7 @@ class App extends Component {
   constructor(props) {
     // constructor 내부에서는 state를 직접 수정 가능
     super(props);
+    this.max_id = 3; // 현재 menu의 최대 id개수
     this.state = {
       mode: "create", // 이벤트
       defid: 0,
@@ -49,7 +50,17 @@ class App extends Component {
         <CreateContent
           onSubmit={function (_title, _desc) {
             // menu 추가
-            console.log(_title, _desc);
+            // state에다가 값을 추가할때에는 push와 같이 오리지널데이터 추가하는 것을
+            //쓰지말고 concat같이 복사하는것 사용할것
+            this.max_id = this.max_id + 1;
+            var _menu = this.state.menu.concat({
+              id: this.max_id,
+              title: _title,
+              desc: _desc,
+            });
+            this.setState({
+              menu: _menu,
+            });
           }.bind(this)}
         ></CreateContent>
       );
