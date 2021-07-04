@@ -1,7 +1,23 @@
 import React, { Component } from "react";
 
 class Toc extends Component {
+  shouldComponentUpdate(newProps, newState) {
+    // 원본menu를 바꾸지 않았을때(concat 사용시) 사용하면 좋은함수
+    //  프로그램이 커질때 데이터가 변하지 않으면 랜더할 필요가 없는 컴포넌트들이 존재 ==> 랜더할 필요있는지없는지 확인
+    // 해주는 함수 shouldComponentUpdate()  인자로 newProps , newState를 받음
+    console.log(
+      "==> TOC render call shouldComponentUpdate",
+      newProps.data,
+      this.props.data
+    );
+    if (newProps.data === this.props.data) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
+    console.log("TOV render call");
     var data = this.props.data; // 외부 props (app.js 파일에서) data 받아와서 변수 Data로 선언
     var i = 0;
     var list = []; //list 선언

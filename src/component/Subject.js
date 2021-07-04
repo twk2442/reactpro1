@@ -9,7 +9,7 @@ class Subject extends Component {
             href="/"
             onClick={function (e) {
               e.preventDefault(); // 이벤트 발생시 기본실행막기
-              this.props.onChange(); // 프롭스로 onChange이벤트 받아오기
+              this.props.onChange(); // 프롭스로 onChange이벤트 받아오기 (app.js에서 받아옴)
             }.bind(this)} // 바인드 함수로 묶어서 this 사용할 수 있게끔 해주기
           >
             {this.props.title}
