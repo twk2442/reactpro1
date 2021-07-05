@@ -5,6 +5,7 @@ import ReadContent from "./component/ReadContent"; // 출처 위치표시하고 
 import Control from "./component/Control"; // 출처 위치표시하고 사용가능  명시
 import CreateContent from "./component/CreateContent";
 import { Component } from "react";
+import Update from "./component/Update";
 
 class App extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class App extends Component {
     super(props);
     this.max_id = 3; // 현재 menu의 최대 id개수
     this.state = {
-      mode: "create", // 이벤트
+      mode: "welcome", // 이벤트
       defid: 0,
       welcome: { title: "welcome", desc: "hello react" }, // 이벤트발생시 내용 state
       subject: { title: "WEB", sub: "World Wide Web!" },
@@ -24,7 +25,20 @@ class App extends Component {
       ],
     };
   } // props 나 state 가 바뀌면  랜더함수가 다시 호출된다
-  render() {
+
+  GetReadContent() {
+    var i = 0;
+    while (i < this.state.menu.length) {
+      var data = this.state.menu[i];
+      if (data.id === this.state.defid) {
+        return data;
+        break;
+      }
+      i = i + 1;
+    }
+  }
+
+  getContent() {
     var _title,
       _desc,
       _article = null;
@@ -34,17 +48,10 @@ class App extends Component {
       _desc = this.state.welcome.desc;
       _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
     } else if (this.state.mode === "read") {
-      var i = 0;
-      while (i < this.state.menu.length) {
-        var data = this.state.menu[i];
-        if (data.id === this.state.defid) {
-          _title = data.title;
-          _desc = data.desc;
-          break;
-        }
-        i = i + 1;
-      }
-      _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
+      var _content = this.GetReadContent();
+      _article = (
+        <ReadContent title={_content.title} desc={_content.desc}></ReadContent>
+      );
     } else if (this.state.mode === "create") {
       _article = (
         <CreateContent
@@ -64,8 +71,32 @@ class App extends Component {
           }.bind(this)}
         ></CreateContent>
       );
+    } else if (this.state.mode === "update") {
+      _content = this.GetReadContent();
+      _article = (
+        <Update
+          data={_content}
+          onSubmit={function (_title, _desc) {
+            // menu 추가
+            // state에다가 값을 추가할때에는 push와 같이 오리지널데이터 추가하는 것을
+            //쓰지말고 concat같이 복사하는것 사용할것
+            this.max_id = this.max_id + 1;
+            var _menu = this.state.menu.concat({
+              id: this.max_id,
+              title: _title,
+              desc: _desc,
+            });
+            this.setState({
+              menu: _menu,
+            });
+          }.bind(this)}
+        ></Update>
+      );
     }
+    return _article;
+  }
 
+  render() {
     return (
       <div className="App">
         <Subject
@@ -86,7 +117,7 @@ class App extends Component {
             this.setState({ mode: _mode });
           }.bind(this)}
         ></Control>
-        {_article}
+        {this.getContent()}
       </div>
     );
   }
