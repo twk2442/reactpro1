@@ -61,7 +61,7 @@ read
 update 
 delete
 
-//
+// 자구,알고리즘,cs 공부준비
 
 // =>화살표 함수 공부  
 //es6 ecma
