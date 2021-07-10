@@ -77,7 +77,7 @@ class App extends Component {
     } else if (this.state.mode === "update") {
       _content = this.GetReadContent();
       if (!this.state.id) {
-        alert("업데이트할 목록을 클릭하세요");
+        alert("업데이트할 목록을 클릭하세요"); // 2번 반복되는 오류 존재 해결할 것
         this.setState({
           mode: "welcome",
         });
