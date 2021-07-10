@@ -61,37 +61,52 @@ class App extends Component {
             //쓰지말고 concat같이 복사하는것 사용할것
             this.max_id = this.max_id + 1;
             var _menu = this.state.menu.concat({
+              // 원본 복사후 새로운스테이트 만들어서 수정 // immutable
               id: this.max_id,
               title: _title,
               desc: _desc,
             });
             this.setState({
               menu: _menu,
+              mode: "read",
+              defid: this.max_id,
             });
           }.bind(this)}
         ></CreateContent>
       );
     } else if (this.state.mode === "update") {
       _content = this.GetReadContent();
-      _article = (
-        <Update
-          data={_content}
-          onSubmit={function (_title, _desc) {
-            // menu 추가
-            // state에다가 값을 추가할때에는 push와 같이 오리지널데이터 추가하는 것을
-            //쓰지말고 concat같이 복사하는것 사용할것
-            this.max_id = this.max_id + 1;
-            var _menu = this.state.menu.concat({
-              id: this.max_id,
-              title: _title,
-              desc: _desc,
-            });
-            this.setState({
-              menu: _menu,
-            });
-          }.bind(this)}
-        ></Update>
-      );
+      if (!this.state.id) {
+        alert("업데이트할 목록을 클릭하세요");
+        this.setState({
+          mode: "welcome",
+        });
+      } else {
+        _article = (
+          <Update
+            data={_content}
+            onSubmit={function (_id, _title, _desc) {
+              // menu 추가
+              // state에다가 값을 추가할때에는 push와 같이 오리지널데이터 추가하는 것을
+              //쓰지말고 concat같이 복사하는것 사용할것
+
+              var _menu = Array.from(this.state.menu); // 원본 복사후 새로운스테이트 만들어서 수정 // immutable ,,  방법 여러가지 ( concat이랑 효과는 동일)
+              var i = 0;
+              while (i < _menu.length) {
+                if (_menu[i].id === _id) {
+                  _menu[i] = { id: _id, title: _title, desc: _desc };
+                  break;
+                }
+                i = i + 1;
+              }
+              this.setState({
+                menu: _menu,
+                mode: "read",
+              });
+            }.bind(this)}
+          ></Update>
+        );
+      }
     }
     return _article;
   }
@@ -114,6 +129,23 @@ class App extends Component {
         ></Toc>
         <Control
           onChangeMode={function (_mode) {
+            if (_mode === "delete") {
+              if (window.confirm("really delete?")) {
+                var _menu = Array.from(this.state.menu);
+                var i = 0;
+                while (i < _menu.length) {
+                  if (_menu[i].id === this.state.defid) {
+                    _menu.splice(i, 1);
+                    break;
+                  }
+                  i = i + 1;
+                }
+                this.setState({
+                  mode: "welcome",
+                  menu: _menu,
+                });
+              }
+            }
             this.setState({ mode: _mode });
           }.bind(this)}
         ></Control>
