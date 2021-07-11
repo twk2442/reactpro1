@@ -70,3 +70,7 @@ delete
 //호이스팅
 //test
 
+
+// react router(url 서비스)
+// redux  (단통방 느낌? )
+
